@@ -39,16 +39,26 @@
     Selector.addEventListener('change', async function() {
     let valorPokemonSeleccionado = event.target.value; 
     let pokeImage = document.querySelector("#pokeImage");
+    let pokeName = document.querySelector("h5");
 
         
         //PokeApi
         let response = await fetch("https://pokeapi.co/api/v2/pokemon/" + valorPokemonSeleccionado);
         let pokemon = await response.json();
-
         let photoPokemon = pokemon.sprites.front_default;
-        console.log(photoPokemon);
+        console.log(pokemon);
         pokeImage.classList.remove("d-none");
         pokeImage.src = photoPokemon;
+        pokeName.textContent = pokemon.name;
+
+        //Shiny part
+        let shiny = document.querySelector("a");
+        shiny.addEventListener("click", function(){
+        pokeImage.src=  pokemon.sprites.front_shiny;
+        }
+        )
+    
+
 });
 
 
