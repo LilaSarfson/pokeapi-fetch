@@ -12,7 +12,7 @@
 <body>
     <div class="container mb-3">
         <div class="card" style="width: 18rem;">
-            <img class="card-img-top d-none" src="" alt="Card image cap" data-shiny-url="">
+            <img id="pokeImage" class="card-img-top d-none" src="" alt="Card image cap" data-shiny-url="">
             <div class="card-body">
                 <h5 class="card-title" style=" text-transform: capitalize;">Lorepokemon</h5>
                 <a href="#" class="btn btn-success">Change to Shiny</a>
@@ -32,6 +32,27 @@
     </div>
 </body>
 <script>
+
+
+    let Selector = document.getElementById("select-pokemon");
+
+    Selector.addEventListener('change', async function() {
+    let valorPokemonSeleccionado = event.target.value; 
+    let pokeImage = document.querySelector("#pokeImage");
+
+        
+        //PokeApi
+        let response = await fetch("https://pokeapi.co/api/v2/pokemon/" + valorPokemonSeleccionado);
+        let pokemon = await response.json();
+
+        let photoPokemon = pokemon.sprites.front_default;
+        console.log(photoPokemon);
+        pokeImage.classList.remove("d-none");
+        pokeImage.src = photoPokemon;
+});
+
+
+
     // 1. Cuando cambie el valor del selector, tenemos que detectar que opción hemos escogido. Probad que sois capaces de recuperar el valor seleccionado por el usuario con un console.log
 
     // 2. En función de la opción escogida, 'montaremos' una URL
